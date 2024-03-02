@@ -11,17 +11,19 @@
 
 <body>
     <h1 align="center">Загрузить музыку с YouTube</h1>
-    <form action="/download" method="post">
+    <form id="downloadForm" action="/download" method="post">
         <label for="url">URL видео YouTube:</label><br>
         <input type="text" id="url" name="url"><br>
         <span id="speedValue">Скорость музыки: 1.0</span><br><br>
         <input type="range" min="0.5" max="2" step="0.1" value="1" id="speed" name="audioSpeed" oninput="changeSpeed()">
-        <button type="submit">Скачать</button>
+        <button type="submit" id="downloadButton">Скачать</button>
     </form>
+    <br>
+    <div class="messageBox" id="messageBox"></div>
     <br>
     <div class="social">
         <a href="https://github.com/Statuxia" target="_blank">
-            <button class="githubButton" style="font-size:24px">Github <i class="fa fa-github"></i></button>
+            <button class="githubButton" style="font-size:24px">GitHub <i class="fa fa-github"></i></button>
         </a>
     </div>
 
@@ -29,6 +31,38 @@
         function changeSpeed() {
             var speedValue = document.getElementById('speed').value;
             document.getElementById('speedValue').textContent = "Скорость музыки: " + speedValue;
+        }
+
+        document.getElementById('downloadForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            showMessage('Загрузка началась');
+            var formData = new FormData(this);
+            fetch('/download', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    url: formData.get("url"),
+                    audioSpeed: formData.get("audioSpeed")
+                })
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        showMessage('Файл успешно загружен');
+                    } else {
+                        showMessage('Произошла ошибка при загрузке файла');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Произошла ошибка:', error);
+                });
+        });
+
+        function showMessage(message) {
+            var messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.style.display = 'block';
         }
     </script>
 </body>
