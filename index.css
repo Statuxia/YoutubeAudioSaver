@@ -74,6 +74,18 @@ button:hover {
     background-color: #41aa44;
 }
 
+.messageBox {
+    display: none;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+
 .social {
     max-width: 150px;
     margin: 0 auto;
