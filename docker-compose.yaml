@@ -5,4 +5,5 @@ services:
     container_name: youtube_audio_saver
     ports:
       - "8881:8881"
-    image: youtubeaudiosaver:1.1
+    image: youtubeaudiosaver:1.1.1
+
