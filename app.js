@@ -11,6 +11,7 @@ const app = express();
 const port = 8881;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 const path = require('path');
 
 app.use('/', express.static(path.join(__dirname), {
