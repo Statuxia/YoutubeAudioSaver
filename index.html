@@ -38,10 +38,14 @@
         }
 
         var response;
+        var lock = false;
         document.getElementById('downloadForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            showMessage('Загрузка началась');
+            if (lock === true) {
+                return;
+            }
             var formData = new FormData(this);
+            showMessage('Загрузка началась', true);
             fetch('/download', {
                 method: 'POST',
                 headers: {
@@ -66,9 +70,9 @@
                 document.body.appendChild(a);
                 a.click();
                 URL.revokeObjectURL(url);
-                showMessage('Файл успешно загружен');
+                showMessage('Файл успешно загружен', false);
             }).catch(error => {
-                showMessage("Произошла ошибка при загрузке файла");
+                showMessage("Произошла ошибка при загрузке файла", false);
                 console.error('Произошла ошибка:', error);
             });
         });
@@ -80,14 +84,42 @@
                     return matches[1];
                 }
             }
-            return 'audio.m4a';
+            return 'audio.mp3';
         }
 
-        function showMessage(message) {
+        function showMessage(message, isLocked) {
+            (lock = isLocked) === true ? lockButton() : unlockButton();
             var messageBox = document.getElementById('messageBox');
             messageBox.textContent = message;
             messageBox.style.display = 'block';
         }
+
+        function lockButton() {
+            let button = document.getElementById("downloadButton");
+            button.disable = false;
+            button.style.backgroundColor = "gray";
+            schedule(0);
+        };
+
+        function schedule(loopNumber) {
+            if (lock === false) {
+                return;
+            }
+            var messageBox = document.getElementById('messageBox');
+            if (loopNumber < 3) {
+                messageBox.textContent += ".";
+                setTimeout(schedule, 400, ++loopNumber);
+            } else {
+                messageBox.textContent = "Загрузка началась";
+                setTimeout(schedule, 400, 0);
+            }
+        }
+
+        function unlockButton() {
+            let button = document.getElementById("downloadButton");
+            button.disable = true;
+            button.style.backgroundColor = "#3d8b41";
+        };
     </script>
 </body>
 

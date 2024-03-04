@@ -33,20 +33,17 @@ app.post('/download', async (req, res) => {
         const title = info.videoDetails.title;
         let stream = ytdl(url, { quality: 'highestaudio' });
 
+        res.set('Content-Disposition', `attachment; filename="${title}.mp3"`);
         ffmpeg(stream)
             .audioBitrate(128)
             .audioFilter(`atempo=${audioSpeed}`)
-            .save(`./songs/${title}.m4a`)
-            .on('end', () => {
-                const file = `./songs/${title}.m4a`;
-                res.download(file, (err) => {
-                    if (err) {
-                        console.error('Ошибка при отправке файла:', err);
-                    } else {
-                        console.log('Файл успешно отправлен пользователю');
-                        fs.unlinkSync(file);
-                    }
-                });
+            .format('mp3')
+            .pipe(res)
+            .on('error', (err) => {
+                console.error('Ошибка при обработке аудио:', err);
+            })
+            .on('finish', () => {
+                console.log('Файл успешно отправлен пользователю');
             });
     } catch (error) {
         console.error('Ошибка:', error);
