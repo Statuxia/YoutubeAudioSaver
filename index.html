@@ -35,15 +35,15 @@
             changeSpeed();
         });
 
-        document.getElementById('downloadForm').addEventListener('submit', function (event) {
+        document.getElementById("downloadForm").addEventListener("submit", function (event) {
             event.preventDefault();
             if (lock === true) {
                 return;
             }
             const formData = new FormData(this);
-            showMessage('Загрузка началась', true);
-            fetch('/download', {
-                method: 'POST',
+            showMessage("Загрузка началась", true);
+            fetch("/download", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -53,41 +53,43 @@
                 })
             }).then(response => {
                 if (!response.ok) {
-                    throw new Error('Произошла ошибка при загрузке файла');
+                    throw new Error("Произошла ошибка при загрузке файла");
                 }
                 this.response = response;
                 return response.blob();
             }).then(blob => {
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
+                const a = document.createElement("a");
+                a.style.display = "none";
                 a.href = url;
                 a.download = getFileName(this.response.headers.get("Content-Disposition"));
                 document.body.appendChild(a);
                 a.click();
                 URL.revokeObjectURL(url);
-                showMessage('Файл успешно загружен', false);
+                showMessage("Файл успешно загружен", false);
             }).catch(error => {
                 showMessage("Произошла ошибка при загрузке файла", false);
-                console.error('Произошла ошибка:', error);
+                console.error("Произошла ошибка:", error);
             });
         });
 
         function getFileName(contentDisposition) {
             if (contentDisposition) {
-                const matches = /filename="([^"]*)"/.exec(contentDisposition);
+                console.log(contentDisposition);
+                const matches = /filename\*=UTF-8''([^"]*)/.exec(contentDisposition);
+                console.log(matches);
                 if (matches != null && matches.length > 1) {
-                    return matches[1];
+                    return decodeURIComponent(matches[1]);
                 }
             }
-            return 'audio.mp3';
+            return "audio.mp3";
         }
 
         function showMessage(message, isLocked) {
             (lock = isLocked) === true ? lockButton() : unlockButton();
-            const messageBox = document.getElementById('messageBox');
+            const messageBox = document.getElementById("messageBox");
             messageBox.textContent = message;
-            messageBox.style.display = 'block';
+            messageBox.style.display = "block";
         }
 
         function lockButton() {
@@ -107,7 +109,7 @@
             if (lock === false) {
                 return;
             }
-            const messageBox = document.getElementById('messageBox');
+            const messageBox = document.getElementById("messageBox");
             if (loopNumber < 3) {
                 messageBox.textContent += ".";
                 setTimeout(schedule, 400, ++loopNumber);
@@ -118,8 +120,8 @@
         }
 
         function changeSpeed() {
-            const speedValue = document.getElementById('speed').value;
-            document.getElementById('speedValue').textContent = "Скорость музыки: " + speedValue;
+            const speedValue = document.getElementById("speed").value;
+            document.getElementById("speedValue").textContent = "Скорость музыки: " + speedValue;
         }
     </script>
 </body>
