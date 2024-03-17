@@ -1,8 +1,10 @@
-body {
+* {
     font-family: Arial, sans-serif;
-    background-color: #1f1f1f;
+}
+
+body {
+    background: #24283B;
     color: #ffffff;
-    margin: 10% 0 0 0;
     padding: 0;
 }
 
@@ -10,19 +12,43 @@ h1 {
     color: #ffffff;
 }
 
+.download {
+    margin-top: 5%;
+}
+
 form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #333333;
-    border-radius: 10px;
+    border-radius: 20px;
+    background-color: #191C29;
+    border-style: solid;
+    border-color: #555E89 #555E89 #555E89 #555E89;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition-duration: 0.3s;
+}
+
+form:hover,
+input[type="range"]:hover,
+input[type="text"]:hover,
+.messageBox:hover,
+.icons:hover {
+    background-color: #1A1B26;
+    border-style: solid;
+    border-color: #7359F8 #7359F8 #7359F8 #7359F8;
+    transition-duration: 0.3s;
 }
 
 label {
     display: block;
-    margin-bottom: 10px;
     color: #ffffff;
+}
+
+label,
+span,
+button,
+.messageBox {
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -30,27 +56,38 @@ input[type="range"] {
     width: 95%;
     padding: 10px;
     margin-bottom: 20px;
-    border: none;
-    border-radius: 5px;
     font-size: 16px;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 20px;
     border: none;
     border-radius: 5px;
     font-size: 16px;
 }
 
+input[type="text"] {
+    outline: none;
+    border-radius: 5px;
+    background-color: #191C29;
+    border-style: solid;
+    border-color: #555E89 #555E89 #555E89 #555E89;
+    transition-duration: 0.3s;
+    color: white;
+}
+
 input[type="range"] {
+    border-radius: 20px;
+    background-color: #191C29;
+    border-style: solid;
+    border-color: #555E89 #555E89 #555E89 #555E89;
     -webkit-appearance: none;
     width: 94.5%;
     height: 15px;
     border-radius: 5px;
-    background: #555;
     outline: none;
+    transition-duration: 0.3s;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -64,14 +101,16 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 button {
-    background-color: #3d8b41;
+    background-color: #258d2a;
     color: white;
     font-size: 16px;
     cursor: pointer;
+    transition-duration: 0.3s;
 }
 
 button:hover {
-    background-color: #41aa44;
+    background-color: #28a82c;
+    transition-duration: 0.3s;
 }
 
 .messageBox {
@@ -79,31 +118,140 @@ button:hover {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #333333;
-    border-radius: 10px;
+    border-radius: 20px;
+    background-color: #191C29;
+    border-style: solid;
+    border-color: #555E89 #555E89 #555E89 #555E89;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    transition-duration: 0.3s;
 }
 
-
-.social {
-    max-width: 150px;
-    margin: 0 auto;
+.icons {
+    background-color: #191C29;
+    border-style: solid;
+    border-color: #00000000 #555E89 #555E89 #555E89;
+    border-radius: 0 0 20px 20px;
     padding: 20px;
-    background-color: #333333;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: -15px;
+    width: 200px;
+    transition-duration: 0.3s;
 }
 
-.githubButton {
-    background-color: white;
-    margin-bottom: 0px;
-    color: black;
-    font-size: 16px;
+#tg,
+#home,
+#mail,
+#github,
+.menu-element {
+    font-size: 30px;
+    margin: 0 10px;
+    color: white;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-color: #00000000 #00000000 #00000000 #00000000;
+    transition-duration: 0.3s;
+}
+
+#tg:hover,
+#mail:hover,
+#github:hover {
+    color: #555F89;
+    border-radius: 20px 20px 20px 20px;
+    border-style: solid;
+    border-color: #00000000 #00000000 #7359F8 #00000000;
+    margin-top: -5px;
+    transition-duration: 0.3s;
+}
+
+#home:hover {
+    color: #555F89;
+    border-radius: 20px 20px 20px 20px;
+    border-style: solid;
+    border-color: #00000000 #00000000 #7359F8 #00000000;
+    margin-top: -8px;
+    transition-duration: 0.3s;
+}
+
+#tg:active,
+#home:active,
+#mail:active,
+#github:active,
+.menu-element:active {
+    transform: translateY(-20px);
+}
+
+input[type=range]::-moz-range-thumb,
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 0px;
+    height: 30px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
+    cursor: pointer;
+    margin-top: -14px;
+}
+
+input[type=range]::-ms-thumb {
+    border: 0px;
+    height: 30px;
+    width: 16px;
+    border-radius: 3px;
+    background: #ffffff;
     cursor: pointer;
 }
 
-.githubButton:hover {
-    background-color: #222222;
-    color: white;
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #191C29;
+    border-radius: 1.3px;
+    border: 1px solid #555E89;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #555E89;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: #555E89;
+    border-radius: 1.3px;
+    border: 1px solid #555E89;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 8.4px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #555E89;
+    border: 1px solid #555E89;
+    border-radius: 2.6px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #555E89;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #555E89;
+    border: 1px solid #555E89;
+    border-radius: 2.6px;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #555E89;
 }
